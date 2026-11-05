@@ -277,9 +277,6 @@ dependencies {
   implementation(libs.lifecycle.process)
 
   implementation(libs.material3)
-  implementation(libs.androidx.adaptive)
-  implementation(libs.androidx.adaptive.layout)
-  implementation(libs.androidx.adaptive.navigation)
   implementation(libs.palette)
   implementation(libs.materialKolor)
 

@@ -28,12 +28,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
-import androidx.compose.material3.adaptive.layout.AnimatedPane
-import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
-import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
-import androidx.compose.material3.adaptive.navigation.BackNavigationBehavior
-import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -61,8 +55,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(
   ExperimentalMaterial3Api::class,
-  ExperimentalMaterial3ExpressiveApi::class,
-  ExperimentalMaterial3AdaptiveApi::class
+  ExperimentalMaterial3ExpressiveApi::class
 )
 @Composable
 fun CommentSheet(videoId: String, onDismiss: () -> Unit) {
@@ -75,7 +68,7 @@ fun CommentSheet(videoId: String, onDismiss: () -> Unit) {
   var isLoading by remember { mutableStateOf(true) }
   var isError by remember { mutableStateOf(false) }
 
-  val navigator = rememberListDetailPaneScaffoldNavigator<CommentThreadRenderer>()
+  var selectedThread by remember { mutableStateOf<CommentThreadRenderer?>(null) }
 
   LaunchedEffect(videoId) {
     YouTube.comments(videoId)
@@ -160,69 +153,48 @@ fun CommentSheet(videoId: String, onDismiss: () -> Unit) {
           }
         }
         else -> {
-          ListDetailPaneScaffold(
-            directive = navigator.scaffoldDirective,
-            scaffoldState = navigator.scaffoldState,
-            modifier = Modifier.fillMaxHeight(),
-            listPane = {
-              AnimatedPane {
-                LazyColumn(
-                  modifier = Modifier.fillMaxHeight(),
-                  contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-                  verticalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                  items(
-                    comments,
-                    key = { item ->
-                      item.comment?.commentRenderer?.commentId ?: "comment-${item.hashCode()}"
-                    }
-                  ) { thread ->
-                    val renderer = thread.comment?.commentRenderer ?: return@items
-                    CommentItem(
-                      renderer = renderer,
-                      onShowReplies = {
-                        scope.launch {
-                          navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, thread)
-                        }
-                      }
-                    )
-                  }
-
-                  if (nextToken != null) {
-                    item(key = "pagination_loader") {
-                      LaunchedEffect(nextToken) {
-                        YouTube.commentContinuation(nextToken!!).onSuccess { (newComments, token) ->
-                          comments = comments + newComments
-                          nextToken = token
-                        }
-                      }
-                      Box(
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
-                        contentAlignment = Alignment.Center
-                      ) {
-                        CircularWavyProgressIndicator(modifier = Modifier.size(32.dp))
-                      }
-                    }
-                  }
+          if (selectedThread != null) {
+            CommentDetailPane(
+              thread = selectedThread!!,
+              onBack = { selectedThread = null }
+            )
+          } else {
+            LazyColumn(
+              modifier = Modifier.fillMaxHeight(),
+              contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+              verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+              items(
+                comments,
+                key = { item ->
+                  item.comment?.commentRenderer?.commentId ?: "comment-${item.hashCode()}"
                 }
+              ) { thread ->
+                val renderer = thread.comment?.commentRenderer ?: return@items
+                CommentItem(
+                  renderer = renderer,
+                  onShowReplies = { selectedThread = thread }
+                )
               }
-            },
-            detailPane = {
-              AnimatedPane {
-                val selectedThread = navigator.currentDestination?.contentKey
-                if (selectedThread != null) {
-                  CommentDetailPane(
-                    thread = selectedThread,
-                    onBack = {
-                      scope.launch {
-                        navigator.navigateBack(BackNavigationBehavior.PopUntilScaffoldValueChange)
-                      }
+
+              if (nextToken != null) {
+                item(key = "pagination_loader") {
+                  LaunchedEffect(nextToken) {
+                    YouTube.commentContinuation(nextToken!!).onSuccess { (newComments, token) ->
+                      comments = comments + newComments
+                      nextToken = token
                     }
-                  )
+                  }
+                  Box(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 32.dp),
+                    contentAlignment = Alignment.Center
+                  ) {
+                    CircularWavyProgressIndicator(modifier = Modifier.size(32.dp))
+                  }
                 }
               }
             }
-          )
+          }
         }
       }
     }
