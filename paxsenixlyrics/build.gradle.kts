@@ -7,7 +7,7 @@ android {
   namespace = "com.music.paxsenix"
   compileSdk = 37
 
-  defaultConfig { minSdk = 26 }
+  defaultConfig { minSdk = 23 }
 
   compileOptions {
     isCoreLibraryDesugaringEnabled = true

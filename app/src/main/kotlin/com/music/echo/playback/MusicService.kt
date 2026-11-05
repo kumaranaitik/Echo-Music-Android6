@@ -275,6 +275,10 @@ class MusicService : MediaLibraryService(), Player.Listener, PlaybackStatsListen
   // packet delays, leading to audio buffering or playback stopping after the screen turns off.
   private var wifiLock: android.net.wifi.WifiManager.WifiLock? = null
   private var audioFocusRequest: AudioFocusRequest? = null
+  private val audioFocusChangeListener =
+    AudioManager.OnAudioFocusChangeListener { focusChange ->
+      handleAudioFocusChange(focusChange)
+    }
   private var lastAudioFocusState = AudioManager.AUDIOFOCUS_NONE
   private var wasPlayingBeforeAudioFocusLoss = false
   private var hasAudioFocus = false
@@ -707,14 +711,16 @@ class MusicService : MediaLibraryService(), Player.Listener, PlaybackStatsListen
     }
 
     try {
-      val nm = getSystemService(NotificationManager::class.java)
-      nm?.createNotificationChannel(
-        NotificationChannel(
-          CHANNEL_ID,
-          getString(R.string.music_player),
-          NotificationManager.IMPORTANCE_LOW
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        nm.createNotificationChannel(
+          NotificationChannel(
+            CHANNEL_ID,
+            getString(R.string.music_player),
+            NotificationManager.IMPORTANCE_LOW
+          )
         )
-      )
+      }
       val pending =
         PendingIntent.getActivity(
           this,
@@ -1589,17 +1595,19 @@ class MusicService : MediaLibraryService(), Player.Listener, PlaybackStatsListen
   }
 
   private fun setupAudioFocusRequest() {
-    audioFocusRequest =
-      AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
-        .setAudioAttributes(
-          android.media.AudioAttributes.Builder()
-            .setUsage(android.media.AudioAttributes.USAGE_MEDIA)
-            .setContentType(android.media.AudioAttributes.CONTENT_TYPE_MUSIC)
-            .build()
-        )
-        .setOnAudioFocusChangeListener { focusChange -> handleAudioFocusChange(focusChange) }
-        .setAcceptsDelayedFocusGain(true)
-        .build()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      audioFocusRequest =
+        AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
+          .setAudioAttributes(
+            android.media.AudioAttributes.Builder()
+              .setUsage(android.media.AudioAttributes.USAGE_MEDIA)
+              .setContentType(android.media.AudioAttributes.CONTENT_TYPE_MUSIC)
+              .build()
+          )
+          .setOnAudioFocusChangeListener(audioFocusChangeListener)
+          .setAcceptsDelayedFocusGain(true)
+          .build()
+    }
   }
 
   private fun handleAudioFocusChange(focusChange: Int) {
@@ -1662,21 +1670,34 @@ class MusicService : MediaLibraryService(), Player.Listener, PlaybackStatsListen
   private fun requestAudioFocus(): Boolean {
     if (hasAudioFocus) return true
 
-    audioFocusRequest?.let { request ->
-      val result = audioManager.requestAudioFocus(request)
-      hasAudioFocus = result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
-      return hasAudioFocus
-    }
-    return false
+    val result =
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val request = audioFocusRequest ?: return false
+        audioManager.requestAudioFocus(request)
+      } else {
+        audioManager.requestAudioFocus(
+          audioFocusChangeListener,
+          AudioManager.STREAM_MUSIC,
+          AudioManager.AUDIOFOCUS_GAIN
+        )
+      }
+
+    hasAudioFocus = result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+    return hasAudioFocus
   }
 
   private fun abandonAudioFocus() {
-    if (hasAudioFocus) {
+    if (!hasAudioFocus) return
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       audioFocusRequest?.let { request ->
         audioManager.abandonAudioFocusRequest(request)
-        hasAudioFocus = false
       }
+    } else {
+      audioManager.abandonAudioFocus(audioFocusChangeListener)
     }
+
+    hasAudioFocus = false
   }
 
   /**

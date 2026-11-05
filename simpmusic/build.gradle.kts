@@ -7,7 +7,7 @@ android {
   namespace = "com.music.simpmusic"
   compileSdk = 37
 
-  defaultConfig { minSdk = 26 }
+  defaultConfig { minSdk = 23 }
 
   compileOptions {
     isCoreLibraryDesugaringEnabled = true

@@ -31,7 +31,7 @@ android {
 
   defaultConfig {
     applicationId = "echo.music.iad1tya"
-    minSdk = 26
+    minSdk = 23
     targetSdk = 36
     versionCode = 165
     versionName = "1.4.4"

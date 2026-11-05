@@ -8,7 +8,7 @@ android {
   namespace = "echo.music.iad1tya.artistvideo"
   compileSdk = 37
 
-  defaultConfig { minSdk = 26 }
+  defaultConfig { minSdk = 23 }
 
   compileOptions {
     isCoreLibraryDesugaringEnabled = true

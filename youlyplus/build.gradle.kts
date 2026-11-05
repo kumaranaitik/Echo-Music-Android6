@@ -7,7 +7,7 @@ android {
   namespace = "com.music.youlyplus"
   compileSdk = 37
 
-  defaultConfig { minSdk = 26 }
+  defaultConfig { minSdk = 23 }
 
   compileOptions {
     isCoreLibraryDesugaringEnabled = true
