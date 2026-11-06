@@ -1,11 +1,5 @@
 package echo.music.iad1tya.playback.smart
 
-import ai.onnxruntime.OnnxTensor
-import ai.onnxruntime.OrtEnvironment
-import ai.onnxruntime.OrtSession
-import timber.log.Timber
-import java.io.File
-import java.nio.FloatBuffer
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.max
@@ -29,45 +23,9 @@ class BeatTracker(
         val beatConfidence: Double,
     )
 
-    @Volatile private var session: OrtSession? = null
-    @Volatile private var sessionThreads = 0
-    private val lock = Any()
-
-    private fun session(): OrtSession? {
-        val threads = inferenceThreads()
-        session?.takeIf { sessionThreads == threads }?.let { return it }
-        synchronized(lock) {
-            session?.takeIf { sessionThreads == threads }?.let { return it }
-            runCatching { session?.close() }
-            session = null
-            return runCatching {
-                val file = File(modelPath())
-                if (!file.exists()) return null
-                val options = OrtSession.SessionOptions().apply {
-                    setIntraOpNumThreads(threads)
-                    setOptimizationLevel(OrtSession.SessionOptions.OptLevel.ALL_OPT)
-                    setCPUArenaAllocator(false)
-                    setMemoryPatternOptimization(false)
-                }
-                OrtEnvironment.getEnvironment().createSession(file.absolutePath, options).also {
-                    session = it
-                    sessionThreads = threads
-                }
-            }.onFailure { Timber.tag(TAG).w(it, "Beat model unavailable") }
-                .getOrNull()
-        }
-    }
-
-    fun release() {
-        synchronized(lock) {
-            runCatching { session?.close() }
-            session = null
-            sessionThreads = 0
-        }
-    }
+    fun release() = Unit
 
     companion object {
-        private const val TAG = "BeatTracker"
         const val MODEL_ASSET = "beat_this_final0_q8.onnx"
         const val CHUNK_FRAMES = 1500
         const val BORDER_FRAMES = 6
