@@ -204,15 +204,18 @@ class App : Application(), SingletonImageLoader.Factory {
         echo.music.iad1tya.constants.PlaybackEngine.AUTO
       }
 
-    val channel =
-      NotificationChannel(
-          "updates",
-          getString(R.string.update_channel_name),
-          NotificationManager.IMPORTANCE_DEFAULT
-        )
-        .apply { description = getString(R.string.update_channel_desc) }
-    val nm = getSystemService(NotificationManager::class.java)
-    nm.createNotificationChannel(channel)
+    // Notification channels were introduced in Android 8.0 (API 26).
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      val channel =
+        NotificationChannel(
+            "updates",
+            getString(R.string.update_channel_name),
+            NotificationManager.IMPORTANCE_DEFAULT
+          )
+          .apply { description = getString(R.string.update_channel_desc) }
+      val nm = getSystemService(NotificationManager::class.java)
+      nm.createNotificationChannel(channel)
+    }
   }
 
   private fun observeSettingsChanges() {
