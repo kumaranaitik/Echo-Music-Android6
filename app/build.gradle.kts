@@ -350,7 +350,6 @@ dependencies {
   implementation(libs.work.runtime.ktx)
   implementation(libs.androidx.core.splashscreen)
   implementation("io.github.dokar3:quickjs-kt-android:1.0.14")
-  implementation("com.microsoft.onnxruntime:onnxruntime-android:1.28.0")
 
   testImplementation(libs.junit)
   testImplementation(libs.kotlinx.coroutines.test)
