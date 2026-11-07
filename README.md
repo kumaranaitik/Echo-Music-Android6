@@ -1,367 +1,71 @@
-# Echo Music — Android 6 Compatibility Port
+# Echo Music — Android 6 Port
 
-> **An independently maintained Android 6 port of the original Echo Music app.**
+An independently maintained Android 6 compatibility port of the original Echo Music app.
 
-This project brings the original Echo Music experience to older Android devices that run **Android 6.0 (Marshmallow, API 23)**. The work in this repository focuses on compatibility changes, build adjustments, and testing on legacy Android hardware.
+This repository contains the changes needed to build and run Echo Music on **Android 6.0 (Marshmallow, API 23)** and compatible devices. It is a community port, not the original Echo Music project.
 
-<div align="center">
+## Credits
 
-| Project role | Credit |
-|:--|:--|
-| **Original app, design, features and creative work** | [Echo Music team and original contributors](https://github.com/EchoMusicApp/Echo-Music) |
-| **Android 6 port, compatibility work and maintenance** | **[Naitik Kumar (@kumaranaitik)](https://github.com/kumaranaitik)** |
+| Work | Credit |
+|---|---|
+| Original Echo Music app, design, features and creative work | [Echo Music team and original contributors](https://github.com/EchoMusicApp/Echo-Music) |
+| Android 6 compatibility port, fixes, testing and maintenance | [Naitik Kumar (@kumaranaitik)](https://github.com/kumaranaitik) |
 
-</div>
+All original project rights and contributions remain with their respective creators. This port does not claim authorship of the original app.
 
-## About this port
+## What this port changes
 
-This is a compatibility-focused community port, not a claim of original authorship. The original Echo Music project remains the source of the app's identity, design, features and assets. This fork maintains the Android 6-specific changes separately.
+- Compatibility adjustments for Android 6.0 / API 23.
+- Notification handling for Android versions that do not support notification channels.
+- Android build and dependency configuration adjustments for legacy devices.
+- Fixes and testing focused on app launch and playback on older Android hardware.
 
-### What this port focuses on
+## Testing
 
-- Supporting **Android 6.0 / API 23**.
-- Adapting notification behavior for Android versions before notification channels.
-- Maintaining playback and notification controls on legacy Android.
-- Adjusting Android build and dependency configuration for the older minimum SDK.
-- Testing core playback flows on an Android 6.0.1 device.
+The port has been tested on a Samsung SM-J700F running Android 6.0.1.
 
-### Port status
+The following core functions were tested:
+- App launch.
+- Music search and online playback.
+- Background playback.
+- Playback notification controls.
+- Album artwork display.
 
-Core functions have been tested on Android 6.0.1, including app launch, music search, online playback, background playback, notification controls and album artwork. Other features may vary by device, Android version, or service availability.
+Results may vary on other devices and Android versions. This is not a guarantee that every original app feature works on every Android 6 device.
 
-> This is an **unofficial community-maintained port**. It is not affiliated with, endorsed by, or an official release of the original Echo Music developers.
-
-**Original project:** [EchoMusicApp/Echo-Music](https://github.com/EchoMusicApp/Echo-Music)  
-**Android 6 port repository:** [kumaranaitik/Echo-Music-Android6](https://github.com/kumaranaitik/Echo-Music-Android6)
-
----
-
-<div align="center">
-  <img src="assets/banner.png" alt="Echo Music Logo"/>
-
-  <p><b>A modern Android music app with ad-free streaming, synced lyrics, offline playback, and an intuitive user experience.</b></p>
-</div>
-
----
-
-## Achievements
-<a href="https://trendshift.io/repositories/160234?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-160234" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/160234" alt="EchoMusicApp%2FEcho-Music | Trendshift" width="250" height="55"/></a> <a href="https://trendshift.io/repositories/160234?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-160234" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/160234/monthly?language=Kotlin" alt="EchoMusicApp%2FEcho-Music | Trendshift" width="250" height="55"/></a>
-
----
-
-## Overview
-
-Echo Music delivers a seamless, premium listening experience by leveraging YouTube Music's vast library — without the ads. It adds powerful extras including offline downloads, real-time synchronized lyrics, and environment-aware music recognition.
-
-> [!IMPORTANT]
-> **In-app OTA updates have been permanently removed.** Please update manually via the website. Echo Music is completely free and ad-free; the few ads shown during a manual download help support the ongoing development of this project. Please do not open issues requesting to bring this back. Thank you for your support!
-
----
-
-## Community
-
-**Discord**: [Join the Echo Music Discord server](https://discord.gg/Xt5hgsJJuA)
-
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Screenshots](#screenshots)
-- [Features](#features)
-- [320 kbps Audio Extension](#320-kbps-audio-extension)
-- [Lossless Audio Extension](#lossless-audio-extension)
-- [Installation & Setup](#installation--setup)
-- [Support the Project](#support-the-project)
-- [Contributors](#contributors)
-- [Special Thanks](#special-thanks)
-
----
-
-## Screenshots
-
-<div align="left">
-  <table style="margin: 0 auto; border-collapse: collapse;">
-    <tr>
-      <td align="center" style="padding: 15px; border: none;">
-        <b>Home Screen</b><br><br>
-        <img src="Screenshots/Home.png" alt="Home Screen" width="220" style="border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);"/>
-      </td>
-      <td align="center" style="padding: 15px; border: none;">
-        <b>Material Player</b><br><br>
-        <img src="Screenshots/Material%20you%20music%20page.png" alt="Material Player" width="220" style="border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);"/>
-      </td>
-      <td align="center" style="padding: 15px; border: none;">
-        <b>Apple Style Player</b><br><br>
-        <img src="Screenshots/Apple%20inspired%20music%20page.png" alt="Apple Style Player" width="220" style="border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);"/>
-      </td>
-    </tr>
-    <tr>
-      <td align="center" style="padding: 15px; border: none;">
-        <b>Synchronized Lyrics</b><br><br>
-        <img src="Screenshots/lyrics.png" alt="Synchronized Lyrics" width="220" style="border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);"/>
-      </td>
-      <td align="center" style="padding: 15px; border: none;">
-        <b>Search & Explore</b><br><br>
-        <img src="Screenshots/search%20page.png" alt="Search & Explore" width="220" style="border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);"/>
-      </td>
-      <td align="center" style="padding: 15px; border: none;">
-        <b>Music Library</b><br><br>
-        <img src="Screenshots/library.png" alt="Music Library" width="220" style="border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);"/>
-      </td>
-    </tr>
-  </table>
-</div>
-
----
-
-## Features
-
-### What's New
-
-> **Music DNA (New!)** — Instantly uncover the backstory of any track. Echo Music queries Genius for deep track annotations, and intelligently falls back to Wikipedia API extracts for regional or obscure tracks where crowd-sourced meanings are missing.
-
-<br>
-
-<details>
-<summary><b>Streaming & Playback</b></summary>
-<br>
-
-- **Ad-Free** — Stream without any interruptions.
-- **Lossless & Hi-Res Audio Streaming** — Stream uncompressed studio-quality FLAC/ALAC up to 24-bit/192kHz with the [lossless-extension](https://github.com/EchoMusicApp/lossless-extension).
-- **High-Quality 320 kbps Streaming** — Stream crystal-clear 320 kbps audio with the [320kbs-extension](https://github.com/EchoMusicApp/320kbs-extension).
-- **Data Saver Mode** — Reduce data consumption when streaming on cellular networks.
-- **Seamless Playback** — Switch effortlessly between audio-only and video modes.
-- **Background Playback** — Listen while using other apps or with the screen off.
-- **Offline Mode** — Download tracks, albums, and playlists via a dedicated download manager.
-- **Crossfade** — Smooth transitions between tracks.
-- **Canvas Animations** — Visual animations while playing music.
-
-</details>
-
-<details>
-<summary><b>Discovery & Echo Find</b></summary>
-<br>
-
-- **Echo Find** — Identify songs playing around you using advanced audio recognition.
-- **Echo Brain** — An intelligent, on-device engine that analyzes your listening momentum and auto-injects perfectly aligned tracks into your queue.
-- **Smart Recommendations** — Personalized suggestions based on your listening history.
-- **Comprehensive Browsing** — Explore Charts, Podcasts, Moods, and Genres.
-
-</details>
-
-<details>
-<summary><b>Lyrics</b></summary>
-<br>
-
-- **Multiple Lyric Animations** — Choose from various lyric display styles.
-- **Word-by-Word Lyrics** — Precise per-word synchronization.
-- **Lyrics+** — New lyrics provider for improved accuracy and coverage.
-- **AI Translation** — Built-in Google Translate integration for lyrics in any language.
-
-  For AI lyrics translation, select **API Route** in the AI settings, enter your [API key](https://www.api-route.com/api-keys), and choose a model available to that key. The preset uses `https://global.api-route.com/v1/chat/completions` with `claude-fable-5-1`; you can enter another exact model ID from the authenticated `/v1/models` catalog using the custom model option. Model availability depends on your key's group and permissions. See the [quickstart](https://www.api-route.com/docs/quickstart).
-
-</details>
-
-<details>
-<summary><b>Integrations</b></summary>
-<br>
-
-- **Music Sharing via Odesli** — Share songs as Song.link for cross-platform listening.
-- **Set as Ringtone** — Directly set any song as your device ringtone.
-
-</details>
-
-<details>
-<summary><b>Smart Playback</b></summary>
-<br>
-
-- **Pause on Mute** — Auto-pause when your device is muted.
-- **Resume on Bluetooth** — Playback resumes when headphones or earbuds reconnect.
-
-</details>
-
-<details>
-<summary><b>Customization</b></summary>
-<br>
-
-- **UI Density Scale** — Adjust interface spacing to your preference.
-- **High Refresh Rate Support** — Smoother UI and animations on supported displays.
-- **Fluid UI & Animations** — Material 3 Emphasized easing and GPU-accelerated lyrics for a silky smooth, lag-free experience.
-- **Hide Player Thumbnail** — Keep the player minimal without album art.
-- **Crop Album Art** — Adjust album art display to fit your style.
-- **Hide Video Songs** — Filter out video content from your feed.
-- **Hide YouTube Shorts** — Keep Shorts out of your music browsing.
-
-</details>
-
----
-
-## 320 kbps Audio Extension
-
-Want to experience crystal-clear, high-bitrate **320 kbps** audio in Echo Music?
-
-By default, YouTube Music delivers standard streaming quality. Echo Music includes built-in support for third-party extension sources, allowing you to stream high-fidelity **320 kbps** audio directly within the app using the official 320 kbps extension!
-
-Visit the official repository to get started:  
-**[https://github.com/EchoMusicApp/320kbs-extension](https://github.com/EchoMusicApp/320kbs-extension)**
-
-### How to Enable 320 kbps Audio:
-
-1. **Visit the Extension Repository**:
-   - Go to [EchoMusicApp/320kbs-extension](https://github.com/EchoMusicApp/320kbs-extension).
-   - Follow the setup and deployment instructions in the repository to deploy or obtain your extension server endpoint.
-
-2. **Add the Server in Echo Music**:
-   - Open the Echo Music app on your Android device.
-   - Tap your profile avatar in the top-right corner to open the **Account** sheet.
-   - Tap **Extensions** to open the Extension Sources settings.
-   - Scroll down to the **Add new** section and tap **Add Custom Server**.
-   - Enter a name (such as `320kbps Audio`) and paste your server's endpoint URL.
-   - Save the server.
-
-3. **Set Playback Priority**:
-   - In the **Extensions** menu, ensure **Prefer Extension Audio** is toggled **ON**.
-   - With this enabled, Echo Music will automatically search and stream high-bitrate 320 kbps audio from your extension before falling back to YouTube Music.
-   - Enjoy studio-quality 320 kbps playback with real-time format and bitrate indicators on the now playing screen!
-
----
-
-## Lossless Audio Extension
-
-Want to experience studio-master **Lossless (FLAC / ALAC)** and **Hi-Res Audio** (up to 24-bit / 192 kHz) directly in Echo Music?
-
-Echo Music features a dedicated lossless audio pipeline with bit-perfect DAC pass-through, real-time Bluetooth codec telemetry (LDAC, aptX HD), and live format badges (`FLAC`, `Hi-Res`, `Bit-Perfect`). By connecting the official **Lossless Extension**, you can stream uncompressed, bit-perfect music from lossless providers directly within the app!
-
-Visit the official repository to get started:  
-**[https://github.com/EchoMusicApp/lossless-extension](https://github.com/EchoMusicApp/lossless-extension)**
-
-### How to Enable Lossless Audio:
-
-1. **Visit the Extension Repository**:
-   - Go to [EchoMusicApp/lossless-extension](https://github.com/EchoMusicApp/lossless-extension).
-   - Follow the setup and deployment instructions to deploy your lossless provider instance (e.g., via Vercel, Railway, Docker, or self-hosted server) or obtain your custom lossless endpoint URL.
-
-2. **Add the Lossless Server in Echo Music**:
-   - Open the Echo Music app on your Android device.
-   - Tap your profile avatar (or the **Settings** gear icon) to open the **Account / Settings** sheet.
-   - Tap **Extensions** to open the Extension Sources screen.
-   - Scroll down to the **Add new** section and tap **Add Custom Server**.
-   - Enter your server configuration:
-     - **Name**: e.g., `Lossless FLAC` or `Hi-Res Audio`
-     - **Server URL**: Paste your deployed extension endpoint (e.g., `https://your-lossless-server.vercel.app`).
-   - Tap **Done** to save the server.
-
-3. **Configure Playback Priority & Audio Pipeline**:
-   - In the **Extensions** menu, ensure **Prefer Extension Audio** is toggled **ON**.
-   - When enabled, Echo Music will prioritize searching and streaming uncompressed FLAC/ALAC audio from your lossless server before falling back to YouTube Music.
-   - *(Optional — Audiophile Hardware)*:
-     - **External USB DAC**: Connect a USB DAC via OTG to automatically activate Echo Music's **Bit-Perfect Audio Pipeline**, bypassing Android's OS resampling engine (`Bit-Perfect • 24-bit / 192 kHz`).
-     - **Hi-Res Bluetooth**: Connect headphones supporting LDAC, aptX HD, or LC3 to view real-time Bluetooth telemetry and the gold **Hi-Res** badge on the player.
-
-4. **Verify Lossless Playback**:
-   - Play any track and expand to the full player screen.
-   - Look for the format badge (e.g., `FLAC 16-bit / 44.1kHz` or `FLAC 24-bit / 96kHz`) next to the playback controls confirming that you are streaming true lossless audio!
-
----
-
-## Installation & Setup
-
-### Android Installation
+## Download
 
 Download Android 6 port builds from this repository's [Releases page](https://github.com/kumaranaitik/Echo-Music-Android6/releases).
 
-<details>
-<summary><b>Building from Source</b></summary>
-<br>
+Only install APKs published in this repository's releases that you trust.
 
-1. **Clone the Repository**
+## Build from source
 
-   ```bash
-   git clone --branch android-6-port https://github.com/kumaranaitik/Echo-Music-Android6.git
-   cd Echo-Music-Android6
-   ```
+Clone this port:
 
-2. **Configure Android SDK**
-   Create a `local.properties` file:
+```bash
+git clone --branch android-6-port https://github.com/kumaranaitik/Echo-Music-Android6.git
+cd Echo-Music-Android6
+```
 
-   ```bash
-   echo "sdk.dir=/path/to/your/android/sdk" > local.properties
-   ```
+Configure your Android SDK path in `local.properties`:
 
-   _(For detailed paths on Windows/macOS/Linux, refer to [SETUP.md](SETUP.md))_
+```properties
+sdk.dir=/path/to/your/android/sdk
+```
 
-3. **Firebase Configuration (Optional)**
-   Firebase is required for analytics and crash reporting. See the instructions in [SETUP.md](SETUP.md#3-configure-firebase-optional) for adding your `google-services.json`.
+For additional setup details, see [SETUP.md](SETUP.md).
 
-4. **Build the Application**
-   To build the Universal FOSS Debug variant:
-   ```bash
-   ./gradlew assembleUniversalFossDebug
-   ```
+## Original project
 
-   _(For optimized ARM64 builds, release builds, or other options, refer to [SETUP.md](SETUP.md))_
+The original Echo Music project is maintained separately by its original developers:
 
-</details>
+[EchoMusicApp/Echo-Music](https://github.com/EchoMusicApp/Echo-Music)
 
----
+This link is provided for attribution and reference only. **Installation instructions and port builds for this repository are available from the Releases page above**, not from the original project's releases.
 
-## Original Echo Music Contributors/
+## Disclaimer
 
-The contributors listed below are credited for their work on the **original Echo Music project**. Their contributions made this Android 6 compatibility port possible. They are not being presented as contributors to the Android 6 port itself.
+This is an unofficial, independently maintained community port. It is not affiliated with, endorsed by, or an official release of the original Echo Music developers.
 
-<!-- readme: contributors -start -->
-<table>
-<tr><td align="center"><a href="https://github.com/iad1tya"><img src="https://avatars.githubusercontent.com/u/147871321?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/mdakashhossain1"><img src="https://avatars.githubusercontent.com/u/85729564?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/gerry02"><img src="https://avatars.githubusercontent.com/u/33490327?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/Roshan-aa11"><img src="https://avatars.githubusercontent.com/u/192568043?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/pranav6004"><img src="https://avatars.githubusercontent.com/u/156088278?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/Mickael81"><img src="https://avatars.githubusercontent.com/u/184148670?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/VardhmanSurana"><img src="https://avatars.githubusercontent.com/u/100058534?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/Rajendra0309"><img src="https://avatars.githubusercontent.com/u/103703747?v=4" width="60" height="60" /></a></td></tr>
-<tr><td align="center"><a href="https://github.com/bivekk51"><img src="https://avatars.githubusercontent.com/u/115235822?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/soumya-99"><img src="https://avatars.githubusercontent.com/u/59480692?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/kaunkrishna"><img src="https://avatars.githubusercontent.com/u/270065466?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/Berserkr2k"><img src="https://avatars.githubusercontent.com/u/127702589?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/InlitX"><img src="https://avatars.githubusercontent.com/u/193412982?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/andrewvalletta"><img src="https://avatars.githubusercontent.com/u/137303110?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/DennyHo0917"><img src="https://avatars.githubusercontent.com/u/149746199?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/Felixkw12"><img src="https://avatars.githubusercontent.com/u/151852644?v=4" width="60" height="60" /></a></td></tr>
-<tr><td align="center"><a href="https://github.com/pranavxdevops"><img src="https://avatars.githubusercontent.com/u/110167539?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/TanvirSdq"><img src="https://avatars.githubusercontent.com/u/112406045?v=4" width="60" height="60" /></a></td><td align="center"><a href="https://github.com/Thibaultjaigu"><img src="https://avatars.githubusercontent.com/u/84420566?v=4" width="60" height="60" /></a></td></tr>
-</table>
-<!-- readme: contributors -end -->
-
-
----
-
-## Special Thanks
-
-Echo Music stands on the shoulders of several excellent open-source projects. Sincere thanks to:
-
-| Project                                                                                                                   | Description                                         |
-| :------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------- |
-| **[Metrolist](https://github.com/MetrolistGroup/Metrolist)** & **[Vivi Music](https://github.com/vivizzz007/vivi-music)** | Foundational inspiration and architecture reference |
-| **[ArchiveTune](https://github.com/koiverse/ArchiveTune)**                                                                | Material You UI inspiration                         |
-| **[Better Lyrics](https://better-lyrics.boidu.dev/)**                                                                     | Lyrics enhancement and synchronization              |
-| **[SimpMusic](https://github.com/maxrave-dev/SimpMusic)**                                                                 | Lyrics implementation reference                     |
-| **[Music Recognizer](https://github.com/aleksey-saenko/MusicRecognizer)**                                                 | Audio recognition (Echo Find)                       |
-| **[BravePipe](https://github.com/bravepipeproject/BravePipe)**                                                            | Decryption handling and backup playback engine      |
-
----
-
-## Legal Disclaimer & Terms of Use
-
-### 1. 100% Free, Open-Source & Strictly Non-Commercial
-
-Echo Music is a fully open-source project (FOSS) created purely for educational purposes and personal use. We do not sell this application, nor do we monetize it in any way. There are no advertisements, no premium features, no subscriptions, and no hidden fees within the app. This project has absolutely no commercial value or financial intent.
-
-### 2. A Custom Browser with Content Filtering
-
-Echo Music acts strictly as a specialized, third-party web browser and client. It simply parses the publicly available website content and APIs of YouTube and YouTube Music, rendering them in a custom user interface. The ad-free experience it provides is fundamentally no different from using a standard web browser (like Chrome, Firefox, or Brave) equipped with a common ad-blocking extension (such as uBlock Origin).
-
-### 3. Support Content Creators
-
-We deeply respect the hard work of artists, musicians, and content creators. We strongly encourage all users to subscribe to [YouTube Premium](https://www.youtube.com/premium). Purchasing a Premium subscription is the best way to financially support the creators you listen to and ensure the continued growth of the platform. Echo Music is built as a proof-of-concept for developers and enthusiasts, not to harm creators' revenues.
-
-### 4. No Hosting of Copyrighted Material
-
-We do not host, upload, distribute, or store any audio, video, or copyrighted media files on our own servers. All content accessed through this application is stored entirely on Google's/YouTube's servers and remains the property of their respective copyright owners. The app merely acts as a conduit to stream publicly accessible links.
-
-### 5. User Responsibility & Legal Contact
-
-The software is provided "AS IS", without warranty of any kind. The developers of Echo Music do not encourage or condone piracy. Users are solely responsible for ensuring their usage of this app complies with their local copyright laws and the Terms of Service of the platforms they access.
-
-Because we do not host any media files, we cannot process DMCA takedown requests for audio or video content. However, if you represent a copyright holder or have legal concerns regarding the open-source code itself, please contact us via email at: [hello@echomusic.fun](mailto:hello@echomusic.fun)
-
----
-
-<div align="center">
-  <p>Licensed under <a href="LICENSE">GPL-3.0</a></p>
-</div>
+The original project's license and applicable third-party licenses continue to apply. See [LICENSE](LICENSE) for this repository's license information.
