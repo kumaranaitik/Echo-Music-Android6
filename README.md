@@ -1,3 +1,15 @@
+> [!NOTE]
+> **Android 6 Compatibility Port**
+>
+> This repository is an independently maintained compatibility port of **Echo Music**, originally created and developed by the **[Echo Music team](https://github.com/EchoMusicApp/Echo-Music)** and its contributors. The original project, its design, features, branding, assets, and documentation are credited to their respective original authors. This port focuses on adapting the application to run on **Android 6.0 (API 23)**.
+>
+> **Original project and authorship:** [EchoMusicApp/Echo-Music](https://github.com/EchoMusicApp/Echo-Music) — the Echo Music team and original contributors.  
+> **Android 6 port and compatibility maintenance:** [Naitik Kumar (@kumaranaitik)](https://github.com/kumaranaitik).
+>
+> This is a community-maintained port and is **not an official release or endorsement** from the original Echo Music developers.
+
+---
+
 <div align="center">
   <img src="assets/banner.png" alt="Echo Music Logo"/>
 
@@ -310,9 +322,9 @@ If Echo Music has been useful to you, consider supporting its development.
 
 ---
 
-## Contributors
+## Original Echo Music Contributors
 
-Without the support of this incredible open-source community, none of this would be possible. Thank you to everyone who has contributed to Echo Music!
+The contributors listed below are credited for their work on the **original Echo Music project**. Their contributions made this Android 6 compatibility port possible. They are not being presented as contributors to the Android 6 port itself.
 
 <!-- readme: contributors -start -->
 <table>
