@@ -351,7 +351,7 @@ dependencies {
   implementation("androidx.compose.material:material-icons-extended:1.7.8")
   implementation(libs.work.runtime.ktx)
   implementation(libs.androidx.core.splashscreen)
-  implementation("io.github.dokar3:quickjs-kt-android:1.0.14")
+  implementation("io.github.dokar3:quickjs-kt-android:1.0.15")
 
   testImplementation(libs.junit)
   testImplementation(libs.kotlinx.coroutines.test)
