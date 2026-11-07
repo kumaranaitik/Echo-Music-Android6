@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.PowerManager
 import android.util.Base64
 import android.widget.Toast
@@ -578,6 +579,8 @@ class ListenTogetherClient @Inject constructor(private val context: Context) {
   }
 
   private fun ensureNotificationChannel() {
+    // Notification channels and their lookup API were added in Android 8.0 (API 26).
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
     try {
       val nm = context.getSystemService(NotificationManager::class.java)
       val existing = nm?.getNotificationChannel(NOTIFICATION_CHANNEL_ID)
