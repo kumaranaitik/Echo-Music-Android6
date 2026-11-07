@@ -39,3 +39,8 @@ lastfm-empty/build/
 BitChord-main/
 ArchiveTune-main/
 PixelMusic-main/
+
+# Local release signing material (never commit)
+/signing/
+*.p12
+*.jks
