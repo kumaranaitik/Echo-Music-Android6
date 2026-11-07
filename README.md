@@ -1,12 +1,38 @@
-> [!NOTE]
-> **Android 6 Compatibility Port**
->
-> This repository is an independently maintained compatibility port of **Echo Music**, originally created and developed by the **[Echo Music team](https://github.com/EchoMusicApp/Echo-Music)** and its contributors. The original project, its design, features, branding, assets, and documentation are credited to their respective original authors. This port focuses on adapting the application to run on **Android 6.0 (API 23)**.
->
-> **Original project and authorship:** [EchoMusicApp/Echo-Music](https://github.com/EchoMusicApp/Echo-Music) — the Echo Music team and original contributors.  
-> **Android 6 port and compatibility maintenance:** [Naitik Kumar (@kumaranaitik)](https://github.com/kumaranaitik).
->
-> This is a community-maintained port and is **not an official release or endorsement** from the original Echo Music developers.
+# Echo Music — Android 6 Compatibility Port
+
+> **An independently maintained Android 6 port of the original Echo Music app.**
+
+This project brings the original Echo Music experience to older Android devices that run **Android 6.0 (Marshmallow, API 23)**. The work in this repository focuses on compatibility changes, build adjustments, and testing on legacy Android hardware.
+
+<div align="center">
+
+| Project role | Credit |
+|:--|:--|
+| **Original app, design, features and creative work** | [Echo Music team and original contributors](https://github.com/EchoMusicApp/Echo-Music) |
+| **Android 6 port, compatibility work and maintenance** | **[Naitik Kumar (@kumaranaitik)](https://github.com/kumaranaitik)** |
+
+</div>
+
+## About this port
+
+This is a compatibility-focused community port, not a claim of original authorship. The original Echo Music project remains the source of the app's identity, design, features and assets. This fork maintains the Android 6-specific changes separately.
+
+### What this port focuses on
+
+- Supporting **Android 6.0 / API 23**.
+- Adapting notification behavior for Android versions before notification channels.
+- Maintaining playback and notification controls on legacy Android.
+- Adjusting Android build and dependency configuration for the older minimum SDK.
+- Testing core playback flows on an Android 6.0.1 device.
+
+### Port status
+
+Core functions have been tested on Android 6.0.1, including app launch, music search, online playback, background playback, notification controls and album artwork. Other features may vary by device, Android version, or service availability.
+
+> This is an **unofficial community-maintained port**. It is not affiliated with, endorsed by, or an official release of the original Echo Music developers.
+
+**Original project:** [EchoMusicApp/Echo-Music](https://github.com/EchoMusicApp/Echo-Music)  
+**Android 6 port repository:** [kumaranaitik/Echo-Music-Android6](https://github.com/kumaranaitik/Echo-Music-Android6)
 
 ---
 
@@ -243,7 +269,7 @@ Visit the official repository to get started:
 
 ### Android Installation
 
-Download the latest pre-compiled APK from the [Releases Page](https://github.com/EchoMusicApp/Echo-Music/releases/latest).
+Download Android 6 port builds from this repository's [Releases page](https://github.com/kumaranaitik/Echo-Music-Android6/releases).
 
 <details>
 <summary><b>Building from Source</b></summary>
@@ -252,8 +278,8 @@ Download the latest pre-compiled APK from the [Releases Page](https://github.com
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/EchoMusicApp/Echo-Music.git
-   cd Echo-Music
+   git clone --branch android-6-port https://github.com/kumaranaitik/Echo-Music-Android6.git
+   cd Echo-Music-Android6
    ```
 
 2. **Configure Android SDK**
@@ -269,9 +295,9 @@ Download the latest pre-compiled APK from the [Releases Page](https://github.com
    Firebase is required for analytics and crash reporting. See the instructions in [SETUP.md](SETUP.md#3-configure-firebase-optional) for adding your `google-services.json`.
 
 4. **Build the Application**
-   To build the Universal Debug variant:
+   To build the Universal FOSS Debug variant:
    ```bash
-   ./gradlew assembleUniversalGmsDebug
+   ./gradlew assembleUniversalFossDebug
    ```
 
    _(For optimized ARM64 builds, release builds, or other options, refer to [SETUP.md](SETUP.md))_
