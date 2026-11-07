@@ -129,6 +129,8 @@ android {
       keyPassword = "android"
     }
     create("release") {
+      // Release signing key is stored as PKCS#12 (.p12) and decoded by CI to keystore.jks.
+      storeType = "PKCS12"
       val keystoreFile = rootProject.file("keystore.jks")
       if (keystoreFile.exists()) {
         storeFile = keystoreFile
