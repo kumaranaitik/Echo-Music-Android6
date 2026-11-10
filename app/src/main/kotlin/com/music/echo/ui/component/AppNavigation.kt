@@ -14,8 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -136,6 +138,14 @@ fun AppNavigationRail(
           }
         },
         interactionSource = interactionSource,
+        colors =
+          NavigationRailItemDefaults.colors(
+            selectedIconColor = MaterialTheme.colorScheme.primary,
+            selectedTextColor = MaterialTheme.colorScheme.primary,
+            indicatorColor = Color(0xFF173D28),
+            unselectedIconColor = Color(0xFFB3B3B3),
+            unselectedTextColor = Color(0xFFB3B3B3)
+          ),
         icon = {
           Icon(
             painter = painterResource(id = iconRes),
@@ -325,6 +335,14 @@ fun AppNavigationBar(
             contentDescription = stringResource(screen.titleId)
           )
         },
+        colors =
+          NavigationBarItemDefaults.colors(
+            selectedIconColor = MaterialTheme.colorScheme.primary,
+            selectedTextColor = MaterialTheme.colorScheme.primary,
+            indicatorColor = Color(0xFF173D28),
+            unselectedIconColor = Color(0xFFB3B3B3),
+            unselectedTextColor = Color(0xFFB3B3B3)
+          ),
         label =
           if (!slimNav) {
             {
