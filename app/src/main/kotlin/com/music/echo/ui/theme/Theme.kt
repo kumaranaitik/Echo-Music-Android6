@@ -27,8 +27,9 @@ import echo.music.iad1tya.constants.AppFont
 import echo.music.iad1tya.constants.SelectedFontKey
 import echo.music.iad1tya.utils.rememberPreference
 
-// Spotify-inspired green accent used as the port's default theme color.
-val DefaultThemeColor = Color(0xFF1DB954)
+// Spotify-inspired palette used by the Android 6 port.
+val SpotifyGreen = Color(0xFF1DB954)
+val DefaultThemeColor = SpotifyGreen
 
 @Composable
 fun echomusicTheme(
@@ -65,8 +66,8 @@ fun echomusicTheme(
       }
     }
 
-  val useSystemDynamicColor =
-    !isMonochrome && (themeColor == DefaultThemeColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+  // Keep the selected app palette consistent instead of replacing it with wallpaper colors.
+  val useSystemDynamicColor = false
 
   val baseColorScheme =
     if (isMonochrome) {
@@ -89,12 +90,42 @@ fun echomusicTheme(
       )
     }
 
-  val colorScheme =
-    remember(baseColorScheme, pureBlack, darkTheme, isMonochrome) {
-      if (darkTheme && pureBlack) {
-        baseColorScheme.pureBlack(true)
-      } else {
+  val spotifyColorScheme =
+    remember(baseColorScheme, darkTheme, isMonochrome) {
+      if (isMonochrome) {
         baseColorScheme
+      } else {
+        baseColorScheme.copy(
+          primary = SpotifyGreen,
+          onPrimary = Color(0xFF07150C),
+          primaryContainer = Color(0xFF174D2B),
+          onPrimaryContainer = Color(0xFFB8F5C8),
+          secondary = Color(0xFF9BD7AA),
+          onSecondary = Color(0xFF102417),
+          secondaryContainer = Color(0xFF243D2C),
+          onSecondaryContainer = Color(0xFFD5F5DC),
+          tertiary = Color(0xFFB7DCC0),
+          onTertiary = Color(0xFF193321),
+          background = if (darkTheme) Color(0xFF121212) else baseColorScheme.background,
+          surface = if (darkTheme) Color(0xFF121212) else baseColorScheme.surface,
+          surfaceVariant = if (darkTheme) Color(0xFF242424) else baseColorScheme.surfaceVariant,
+          onSurface = if (darkTheme) Color(0xFFF5F5F5) else baseColorScheme.onSurface,
+          onSurfaceVariant = if (darkTheme) Color(0xFFB3B3B3) else baseColorScheme.onSurfaceVariant,
+          surfaceContainerLowest = if (darkTheme) Color(0xFF0D0D0D) else baseColorScheme.surfaceContainerLowest,
+          surfaceContainerLow = if (darkTheme) Color(0xFF171717) else baseColorScheme.surfaceContainerLow,
+          surfaceContainer = if (darkTheme) Color(0xFF1A1A1A) else baseColorScheme.surfaceContainer,
+          surfaceContainerHigh = if (darkTheme) Color(0xFF242424) else baseColorScheme.surfaceContainerHigh,
+          surfaceContainerHighest = if (darkTheme) Color(0xFF2A2A2A) else baseColorScheme.surfaceContainerHighest
+        )
+      }
+    }
+
+  val colorScheme =
+    remember(spotifyColorScheme, pureBlack, darkTheme) {
+      if (darkTheme && pureBlack) {
+        spotifyColorScheme.pureBlack(true)
+      } else {
+        spotifyColorScheme
       }
     }
 
