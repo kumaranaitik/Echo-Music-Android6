@@ -165,6 +165,54 @@ fun AboutScreen(
       }
 
       item {
+        Card(
+          onClick = { uriHandler.openUri("https://github.com/kumaranaitik") },
+          modifier = Modifier.fillMaxWidth(),
+          shape = RoundedCornerShape(20.dp),
+          colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+          )
+        ) {
+          Row(
+            modifier = Modifier.fillMaxWidth().padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+          ) {
+            Icon(
+              painter = painterResource(R.drawable.github),
+              contentDescription = null,
+              modifier = Modifier.size(36.dp),
+              tint = MaterialTheme.colorScheme.onPrimaryContainer
+            )
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+              Text(
+                text = "ANDROID 6 PORT MAINTAINER",
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+              )
+              Text(
+                text = "Naitik Kumar",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+              )
+              Text(
+                text = "GitHub · @kumaranaitik",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+              )
+              Text(
+                text = "Porting and maintaining Echo Music for Android 6",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
+              )
+            }
+          }
+        }
+      }
+
+      item {
         Material3SettingsGroup(
           title = "Developer",
           items =
