@@ -4704,7 +4704,7 @@ class MusicService : MediaLibraryService(), Player.Listener, PlaybackStatsListen
     player.playWhenReady = false
     player.stop()
 
-    stopForeground(STOP_FOREGROUND_REMOVE)
+    stopForeground(true)
     getSystemService(NotificationManager::class.java)?.cancel(NOTIFICATION_ID)
 
     releaseMediaSessionSafely()
