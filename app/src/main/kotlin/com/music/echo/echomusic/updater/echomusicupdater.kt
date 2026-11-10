@@ -339,9 +339,18 @@ fun UpdateScreen(navController: NavHostController) {
                         ContextCompat.startActivity(context, installIntent, null)
                       }
                     } else {
-                      val urlToDownload =
-                        currentStatus.apkUrl
-                          ?: "https://github.com/EchoMusicApp/Echo-Music/releases/download/${currentStatus.version}/echomusic.apk"
+                      val urlToDownload = currentStatus.apkUrl
+                      if (urlToDownload.isNullOrBlank()) {
+                        ContextCompat.startActivity(
+                          context,
+                          Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://github.com/kumaranaitik/Echo-Music-Android6/releases")
+                          ),
+                          null
+                        )
+                        return@AnimatedActionButton
+                      }
 
                       val constraints =
                         Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
@@ -674,7 +683,7 @@ suspend fun checkForUpdate(
 ) {
   withContext(Dispatchers.IO) {
     try {
-      val url = URL("https://api.github.com/repos/EchoMusicApp/Echo-Music/releases/latest")
+      val url = URL("https://api.github.com/repos/kumaranaitik/Echo-Music-Android6/releases/latest")
       val json = url.openStream().bufferedReader().use { it.readText() }
       val targetRelease = JSONObject(json)
 
@@ -682,7 +691,7 @@ suspend fun checkForUpdate(
       val targetTagName = targetRelease.getString("tag_name")
       val currentClean = currentVersion.removePrefix("b").removePrefix("v").trim()
       val targetClean = targetTagName.removePrefix("b").removePrefix("v").trim()
-      val shouldShow = currentClean != targetClean
+      val shouldShow = isNewerVersion(targetTagName, currentVersion)
 
       if (shouldShow) {
         val tagWithPrefix = targetRelease.getString("tag_name")
@@ -694,7 +703,7 @@ suspend fun checkForUpdate(
         try {
           val changelogUrl =
             URL(
-              "https://github.com/EchoMusicApp/Echo-Music/releases/download/$tagWithPrefix/changelog.json"
+              "https://github.com/kumaranaitik/Echo-Music-Android6/releases/download/$tagWithPrefix/changelog.json"
             )
           val changelogJson = changelogUrl.openStream().bufferedReader().use { it.readText() }
           val changelogData = JSONObject(changelogJson)
@@ -814,7 +823,7 @@ suspend fun fetchChangelogForVersion(currentVersion: String): WhatsNewInfo? =
     try {
       val cleanCurrent = currentVersion.removePrefix("b").removePrefix("v").trim()
       val releasesJson =
-        openTimedStream("https://api.github.com/repos/EchoMusicApp/Echo-Music/releases")
+        openTimedStream("https://api.github.com/repos/kumaranaitik/Echo-Music-Android6/releases")
           .bufferedReader()
           .use { it.readText() }
       val releases = JSONArray(releasesJson)
@@ -836,7 +845,7 @@ suspend fun fetchChangelogForVersion(currentVersion: String): WhatsNewInfo? =
       try {
         val changelogJson =
           openTimedStream(
-              "https://github.com/EchoMusicApp/Echo-Music/releases/download/$tag/changelog.json"
+              "https://github.com/kumaranaitik/Echo-Music-Android6/releases/download/$tag/changelog.json"
             )
             .bufferedReader()
             .use { it.readText() }
