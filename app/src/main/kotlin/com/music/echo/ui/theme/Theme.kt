@@ -27,7 +27,8 @@ import echo.music.iad1tya.constants.AppFont
 import echo.music.iad1tya.constants.SelectedFontKey
 import echo.music.iad1tya.utils.rememberPreference
 
-val DefaultThemeColor = Color(0xFFED5564)
+// Spotify-inspired green accent used as the port's default theme color.
+val DefaultThemeColor = Color(0xFF1DB954)
 
 @Composable
 fun echomusicTheme(
