@@ -86,7 +86,7 @@ fun UpdateSettings(
     kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
       try {
         val url =
-          java.net.URL("https://api.github.com/repos/EchoMusicApp/Echo-Music/releases/latest")
+          java.net.URL("https://api.github.com/repos/kumaranaitik/Echo-Music-Android6/releases/latest")
         val json = url.openStream().bufferedReader().use { it.readText() }
         val targetRelease = JSONObject(json)
         releaseNotes = targetRelease.getString("body")
@@ -133,7 +133,7 @@ fun UpdateSettings(
               }
             },
             onClick = {
-              val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://echomusic.fun"))
+              val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/kumaranaitik/Echo-Music-Android6/releases"))
               context.startActivity(intent)
             }
           )
@@ -142,7 +142,7 @@ fun UpdateSettings(
 
     Text(
       text =
-        "To download updates, you will be redirected to our official site containing ads. This helps fund the app's development. Thank you for your support!",
+        "Updates for this Android 6 port are published on this repository's GitHub Releases page.",
       style = MaterialTheme.typography.bodySmall,
       color = MaterialTheme.colorScheme.onSurfaceVariant,
       modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp)
