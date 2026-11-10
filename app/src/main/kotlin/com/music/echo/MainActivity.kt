@@ -523,7 +523,7 @@ class MainActivity : ComponentActivity() {
     downloadUtil: DownloadUtil,
     syncUtils: SyncUtils,
   ) {
-    val enableDynamicTheme by rememberPreference(DynamicThemeKey, defaultValue = true)
+    val enableDynamicTheme by rememberPreference(DynamicThemeKey, defaultValue = false)
     val enableHighRefreshRate by rememberPreference(EnableHighRefreshRateKey, defaultValue = true)
     val context = LocalContext.current
     var showUpdateDialog by remember { androidx.compose.runtime.mutableStateOf(false) }
@@ -692,7 +692,7 @@ class MainActivity : ComponentActivity() {
       }
     }
 
-    val darkTheme by rememberEnumPreference(DarkModeKey, defaultValue = DarkMode.AUTO)
+    val darkTheme by rememberEnumPreference(DarkModeKey, defaultValue = DarkMode.ON)
     val isSystemInDarkTheme = isSystemInDarkTheme()
     val useDarkTheme =
       remember(darkTheme, isSystemInDarkTheme) {
